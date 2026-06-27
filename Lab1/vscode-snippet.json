@@ -1,0 +1,23 @@
+{
+  "Java Fast I/O Template": {
+    "prefix": "fastio",
+    "body": [
+      "import java.io.*;",
+      "import java.util.*;",
+      "",
+      "public class ${TM_FILENAME_BASE} {",
+      "    public static void main(String[] args) throws Exception {",
+      "        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));",
+      "        PrintWriter pw = new PrintWriter(System.out);",
+      "        StringTokenizer st=new StringTokenizer(br.readLine());",
+      "",
+      "        ${0}",
+      "",
+      "        pw.flush();",
+      "        pw.close();",
+      "    }",
+      "}"
+    ],
+    "description": "Fast I/O template"
+  }
+}
