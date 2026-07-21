@@ -5,30 +5,38 @@ public class EFastSeriesDrift {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(System.out);
-        int t = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int t = Integer.parseInt(st.nextToken());
         while (t-- > 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            st = new StringTokenizer(br.readLine());
             long a = Long.parseLong(st.nextToken());
             long n = Long.parseLong(st.nextToken());
             long m = Long.parseLong(st.nextToken());
-            pw.println(sumGeo(a, n, m));
+            pw.println(sumGeo(a, n, m)[0]);
         }
         pw.flush();
         pw.close();
     }
 
-    static long sumGeo(long a, long n, long m) {
+    static long[] sumGeo(long a, long n, long m) {
         if (n == 1) {
-            return a % m;
+            long amod = a % m;
+            return new long[]{amod, amod};
         }
         if (n % 2 == 0) {
-            long half = sumGeo(a, n / 2, m);
-            long aPow = powMod(a, n / 2, m);
-            return (half * ((1 + aPow) % m)) % m;
+            long[] half = sumGeo(a, n / 2, m);
+            long halfSum = half[0];
+            long halfPow = half[1];
+            long totalSum = (halfSum * ((1 + halfPow) % m)) % m;
+            long totalPow = (halfPow * halfPow) % m;
+            return new long[]{totalSum, totalPow};
         } else {
-            long prev = sumGeo(a, n - 1, m);
-            long aPow = powMod(a, n, m);
-            return (prev + aPow) % m;
+            long[] prev = sumGeo(a, n - 1, m);
+            long prevSum = prev[0];
+            long prevPow = prev[1];
+            long curPow = (prevPow * (a % m)) % m;
+            long totalSum = (prevSum + curPow) % m;
+            return new long[]{totalSum, curPow};
         }
     }
 
