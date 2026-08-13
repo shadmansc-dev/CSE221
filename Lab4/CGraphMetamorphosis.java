@@ -21,12 +21,8 @@ public class CGraphMetamorphosis {
 
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
-                if (j < n - 1){
-                    pw.print(matrix[i][j] + " ");
-                } else {
-                    pw.print(matrix[i][j] + " ");
-                }
-            }
+                pw.print(matrix[i][j] + " ");
+            }    
             pw.println();
         }
 

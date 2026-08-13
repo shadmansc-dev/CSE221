@@ -11,13 +11,6 @@ public class DTheSevenBridgesOfKonigsberg {
         int m = Integer.parseInt(st.nextToken());
 
         int[] degree = new int[n];
-        int[] parent = new int[n];
-        int[] rank = new int[n];
-
-        for(int i = 0; i < n; i++){
-            parent[i] = i;
-            rank[i] = 0;
-        }
 
         int[] u = new int[m];
         int[] v = new int[m];
@@ -38,24 +31,6 @@ public class DTheSevenBridgesOfKonigsberg {
             } else {
                 degree[u[i]]++;
                 degree[v[i]]++;
-                union(parent, rank, u[i], v[i]);
-            }
-        }
-
-        boolean connected = true;
-        if (m > 0){
-            int root = -1;
-            for(int i = 0; i < n; i++){
-                if (degree[i] > 0){
-                    if (root == -1){
-                        root = find(parent, i);
-                    } else {
-                        if (find(parent, i) != root){
-                            connected = false;
-                            break;
-                        }
-                    }
-                }
             }
         }
 
@@ -66,7 +41,7 @@ public class DTheSevenBridgesOfKonigsberg {
             }
         }
 
-        if (connected && (oddCount == 0 || oddCount == 2)){
+        if (oddCount == 0 || oddCount == 2){
             pw.println("YES");
         } else {
             pw.println("NO");
@@ -74,28 +49,5 @@ public class DTheSevenBridgesOfKonigsberg {
 
         pw.flush();
         pw.close();
-    }
-
-    static int find(int[] parent, int x){
-        if (parent[x] != x){
-            parent[x] = find(parent, parent[x]);
-        }
-        return parent[x];
-    }
-
-    static void union(int[] parent, int[] rank, int a, int b){
-        int ra = find(parent, a);
-        int rb = find(parent, b);
-        if (ra == rb){
-            return;
-        }
-        if (rank[ra] < rank[rb]){
-            parent[ra] = rb;
-        } else if (rank[ra] > rank[rb]){
-            parent[rb] = ra;
-        } else {
-            parent[rb] = ra;
-            rank[ra]++;
-        }
     }
 }
